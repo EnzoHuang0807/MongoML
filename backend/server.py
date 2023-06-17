@@ -21,14 +21,20 @@ def train_model(data : pd.DataFrame, test_data : pd.DataFrame, y_column : str, m
     # extract X and Y
     X = data.drop([y_column], axis=1)
     Y = data[y_column].copy()
-    if model_type == 'CatBoost':
+    if model_type == 'CatBoostRegressor':
         model = Model_Cat_Regressor()
         Train_Y = model.fit(X, Y)
         print("Train complete")
         Test_Y = model.predict(test_data)
+
+    elif model_type == 'LightGBMRegressor':
+        model = Model_LGBM_Regressor()
+        Train_Y = model.fit(X, Y)
+        print("Train complete")
+        Test_Y = model.predict(test_data)
     else : 
-        if model_type != 'LinearRegression'
-        print(f"{model_type=} not found, default to LinearRegression")
+        if model_type != 'LinearRegression':
+            print(f"{model_type=} not found, default to LinearRegression")
         # default Linear Regression
         # train model
         pinv_X = np.linalg.pinv(X.to_numpy())
