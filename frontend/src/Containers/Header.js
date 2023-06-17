@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <Wrapper>
-      <Typography variant="h2">ScoreCard DB</Typography>
+      <Typography variant="h2">MongoML</Typography>
       <Button variant="contained" color="secondary" onClick={handleClear}>
         Clear
       </Button>

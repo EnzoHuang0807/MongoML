@@ -1,40 +1,47 @@
 import { useState } from 'react';
 import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Paper from '@material-ui/core/Paper';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import { useStyles } from '../hooks';
 import axios from '../api';
 import { useScoreCard } from '../hooks/useScoreCard';
 
 const Wrapper = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
 
-const Row = styled.div`
+const Dashboard = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
+  gap: 10%;
   width: 100%;
   padding: 1em;
 `;
 
-const StyledFormControl = styled(FormControl)`
-  min-width: 120px;
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const ContentPaper = styled(Paper)`
+  width: 50%;
   height: 300px;
-  padding: 2em;
+  padding: 1em;
   overflow: auto;
+  white-space: pre-wrap;
 `;
+
+const  db_options = ['ML_final']
 
 const Body = () => {
   const classes = useStyles();
@@ -42,120 +49,65 @@ const Body = () => {
   const { messages, addCardMessage, addRegularMessage, addErrorMessage } =
     useScoreCard();
 
-  const [name, setName] = useState('');
-  const [subject, setSubject] = useState('');
-  const [score, setScore] = useState(0);
-
-  const [queryType, setQueryType] = useState('name');
-  const [queryString, setQueryString] = useState('');
+  const [operation, setOperation] = useState('');
+  const [db, setDB] = useState('');
 
   const handleChange = (func) => (event) => {
     func(event.target.value);
   };
 
-  const handleAdd = async () => {
+  const handleRequest = async () => {
     const {
       data: { response_type, data },
     } = await axios.post('/mongodb_operation', {
-      database: "ML_final", 
-      db_operation: "db.getCollection(\"train\").findOne()"
+      database: db, 
+      db_operation: operation 
     });
-
+    addCardMessage(data)
     console.log(data);
-  };
-
-  const handleQuery = async () => {
-    const {
-      data: { messages, message },
-    } = await axios.get('/cards', {
-      params: {
-        type: queryType,
-        queryString,
-      },
-    });
-
-    if (!messages) addErrorMessage(message);
-    else addRegularMessage(false, ...messages);
   };
 
   return (
     <Wrapper>
-      <Row>
-        {/* Could use a form & a library for handling form data here such as Formik, but I don't really see the point... */}
+      <Dashboard>
         <TextField
-          className={classes.input}
-          placeholder="Name"
-          value={name}
-          onChange={handleChange(setName)}
-        />
-        <TextField
-          className={classes.input}
-          placeholder="Subject"
-          style={{ width: 240 }}
-          value={subject}
-          onChange={handleChange(setSubject)}
-        />
-        <TextField
-          className={classes.input}
-          placeholder="Score"
-          value={score}
-          onChange={handleChange(setScore)}
-          type="number"
-        />
+            id="select-db"
+            select
+            helperText="Please select the Database you want to work on"
+            value = {db}
+            onChange={handleChange(setDB)}
+        >
+          {db_options.map((option) => (
+            <MenuItem key={option} value={option}>
+                {option}
+            </MenuItem>
+          ))}
+        </TextField>
+
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
-          disabled={!name || !subject}
-          onClick={handleAdd}
+          onClick={handleRequest}
         >
-          Add
+          Request
         </Button>
-      </Row>
+      </Dashboard>
       <Row>
-        <StyledFormControl>
-          <FormControl component="fieldset">
-            <RadioGroup
-              row
-              value={queryType}
-              onChange={handleChange(setQueryType)}
-            >
-              <FormControlLabel
-                value="name"
-                control={<Radio color="primary" />}
-                label="Name"
-              />
-              <FormControlLabel
-                value="subject"
-                control={<Radio color="primary" />}
-                label="Subject"
-              />
-            </RadioGroup>
-          </FormControl>
-        </StyledFormControl>
         <TextField
-          placeholder="Query string..."
-          value={queryString}
-          onChange={handleChange(setQueryString)}
-          style={{ flex: 1 }}
+          id="multiline-input"
+          multiline
+          value={operation}
+          onChange={handleChange(setOperation)}
         />
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          disabled={!queryString}
-          onClick={handleQuery}
-        >
-          Query
-        </Button>
+        <ContentPaper variant="outlined">
+          {messages.map((m, i) => (
+            <Typography variant="body2" key={m + i} style={{ color: m.color }}>
+              {m.message}
+            </Typography>
+          ))}
+        </ContentPaper>
       </Row>
-      <ContentPaper variant="outlined">
-        {messages.map((m, i) => (
-          <Typography variant="body2" key={m + i} style={{ color: m.color }}>
-            {m.message}
-          </Typography>
-        ))}
-      </ContentPaper>
     </Wrapper>
   );
 };

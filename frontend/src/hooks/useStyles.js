@@ -7,7 +7,7 @@ export const useStyles = makeStyles({
     margin: '0 0.2em',
   },
   button: {
-    width: '100px',
+    width: '150px',
     marginLeft: '0.6em',
   },
 });
