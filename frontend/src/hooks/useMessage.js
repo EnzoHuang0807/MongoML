@@ -5,10 +5,12 @@ const ERROR_MESSAGE_COLOR = '#fb3640';
 
 const MessageContext = createContext({
   messages: [],
+  db_options: [],
 
   addCardMessage: () => {},
   removeMessage: () => {},
   addErrorMessage: () => {},
+  setDBOptions: () => {}
 });
 
 const makeMessage = (message, color) => {
@@ -17,6 +19,7 @@ const makeMessage = (message, color) => {
 
 const MessageProvider = (props) => {
   const [messages, setMessages] = useState([]);
+  const [db_options, setDBOptions] = useState([]);
 
   const addRegularMessage = (message) => {
     setMessages([makeMessage(message, REGULAR_MESSAGE_COLOR)]);
@@ -34,9 +37,11 @@ const MessageProvider = (props) => {
     <MessageContext.Provider
       value={{
         messages,
+        db_options,
         addRegularMessage,
         removeMessage,
         addErrorMessage,
+        setDBOptions,
       }}
       {...props}
     />

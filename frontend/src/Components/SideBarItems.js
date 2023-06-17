@@ -7,6 +7,7 @@ import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 
 import { Link, useLocation } from 'react-router-dom';
 import { useMessage } from '../hooks/useMessage';
+import axios from '../api';
 
 const items = [
   {
@@ -30,9 +31,15 @@ function SideBarItems() {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const { removeMessage } = useMessage();
+  const { removeMessage , setDBOptions , db_options} = useMessage();
 
   const handleClear = async () => {
+
+    const {
+      data: { response_type, data},
+    } = await axios.get('/db');
+
+    setDBOptions(data);
     removeMessage();
   };
 

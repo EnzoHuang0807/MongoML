@@ -39,15 +39,12 @@ const ContentPaper = styled(Paper)`
 `;
 
 const db_options = ["ML_final"];
-const train_options = ["train", "enzo"];
-const test_options = ["test"];
 const model_options = ["CatBoostRegressor", "LightGBMRegressor", "LinearRegression"];
-const column_options = ["Danceability"];
 
 const Body = () => {
   const classes = useStyles();
 
-  const { messages, addRegularMessage, addErrorMessage} =
+  const { messages, addRegularMessage, addErrorMessage, db_options} =
     useMessage();
 
   const Image = ({ data }) => <img src={`data:image/jpeg;base64,${data}`} width="50%"/>
@@ -65,11 +62,37 @@ const Body = () => {
   const [heatmap, setHeatmap] = useState();
   const [barChart, setBarChart] = useState();
 
-  const handleChange = (func) => (event) => {
+  const [train_options, setTrainOption] = useState([])
+  const [test_options, setTestOption] = useState([])
+  const [column_options, setColumnOption] = useState([])
+
+  const handleChange = (func) => async(event) => {
     func(event.target.value);
+
+    if (func == setDB){
+      const {
+        data: { response_type, data},
+      } = await axios.post('/collection', {
+          database: event.target.value, 
+      });
+      
+      setTrainOption(data);
+      setTestOption(data);
+    } 
+
+    else if (func == setTrain){
+      const {
+        data: { response_type, data},
+      } = await axios.post('/feature', {
+          database: db,
+          collection: event.target.value, 
+      });
+      
+      setColumnOption(data);
+    }
   };
 
-  const handleRadio = (func, value) => (event) => {
+  const handleClick = (func, value) => (event) => {
     if (event.target.value == value){
         func('')
     } else {
@@ -190,7 +213,7 @@ const Body = () => {
             <RadioGroup
               column
               value={dup}
-              onClick={handleRadio(setDup, dup)}
+              onClick={handleClick(setDup, dup)}
             >
               <FormControlLabel
                 value="remove_duplicates"
@@ -207,7 +230,7 @@ const Body = () => {
             <RadioGroup
               column
               value={scaling}
-              onClick={handleRadio(setScaling, scaling)}
+              onClick={handleClick(setScaling, scaling)}
             >
               <FormControlLabel
                 value="standard_scaling"
@@ -228,7 +251,7 @@ const Body = () => {
             <RadioGroup
               column
               value={impute}
-              onClick={handleRadio(setImpute, impute)}
+              onClick={handleClick(setImpute, impute)}
             >
               <FormControlLabel
                 value="impute_mean"

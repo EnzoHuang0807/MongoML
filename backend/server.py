@@ -17,26 +17,35 @@ from model import *
 app = Flask(__name__)
 CORS(app)
 
-def train_model(data : pd.DataFrame, test_data : pd.DataFrame, y_column : str, model_type : str = 'LinearRegression'):
+def train_model(data : pd.DataFrame, test_data : pd.DataFrame, 
+                y_column : str, model_type : str):
+    
     # extract X and Y
     X = data.drop([y_column], axis=1)
     Y = data[y_column].copy()
+
     if model_type == 'CatBoostRegressor':
+
         model = Model_Cat_Regressor()
         Train_Y = model.fit(X, Y)
         print("Train complete")
         Test_Y = model.predict(test_data)
 
     elif model_type == 'LightGBMRegressor':
+
         model = Model_LGBM_Regressor()
         Train_Y = model.fit(X, Y)
         print("Train complete")
         Test_Y = model.predict(test_data)
+
     else : 
+
         if model_type != 'LinearRegression':
             print(f"{model_type=} not found, default to LinearRegression")
+
         # default Linear Regression
         # train model
+
         pinv_X = np.linalg.pinv(X.to_numpy())
         pinv_Y = np.array(Y)
         w_LIN = np.matmul(pinv_X, pinv_Y)
@@ -69,6 +78,38 @@ def get_response_image(image_path):
     return encoded_img
 
 
+# Route for get db
+@app.route('/db', methods = ['GET'])
+def db():
+    response = {'response_type': 'info', 
+                    'data': db_client.list_database_names()}
+    return jsonify(response)
+
+
+# Route for get collection
+@app.route('/collection', methods = ['POST'])
+def collection():
+    data = request.json
+    db = db_client[data["database"]]
+
+    response = {'response_type': 'info', 
+                    'data': db.list_collection_names()}
+    return jsonify(response)
+
+
+# Route for get feature
+@app.route('/feature', methods = ['POST'])
+def feature():
+    data = request.json
+    db = db_client[data["database"]]
+    collection = data["collection"]
+
+    response = {'response_type': 'info', 
+                    'data': list(db[collection].find_one().keys())}
+    return jsonify(response)
+
+
+
 # Route for machine learning
 @app.route('/machine_learning', methods = ['POST'])
 def machine_learning():
@@ -83,19 +124,18 @@ def machine_learning():
     model = data['model']
     predict_column = data['predict_column']
     preprocessing_methods = data['preprocessing_methods']
-    print(preprocessing_methods)
 
     #select db and collection
     db = db_client[database]
 
     if train_collection not in db.list_collection_names():
         response = {'response_type': 'error', 
-                    'message': 'Requested train collection does not exist'}
+                    'data': 'Requested train collection does not exist'}
         return jsonify(response)
 
     if test_collection not in db.list_collection_names():
         response = {'response_type': 'error', 
-                    'message': 'Requested test collection does not exist'}
+                    'data': 'Requested test collection does not exist'}
         return jsonify(response)
 
     train_collection = db[train_collection]
@@ -132,6 +172,8 @@ def machine_learning():
     
     os.system("rm heatmap.png barchart.png")
     return jsonify(response)
+
+
 
 # Route for data exploration
 @app.route('/data_exploration', methods = ['POST'])

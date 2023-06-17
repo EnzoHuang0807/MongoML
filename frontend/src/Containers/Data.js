@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import { useStyles } from '../hooks';
 import axios from '../api';
+import { useMessage } from '../hooks/useMessage';
 
 const Wrapper = styled.section`
   display: flex;
@@ -28,11 +29,11 @@ const StyledFormControl = styled(FormControl)`
   min-width: 120px;
 `;
 
-const db_options = ["ML_final"];
-const collection_options = ["train", "test"];
 
 const Body = () => {
+
   const classes = useStyles();
+  const {db_options} = useMessage();
 
   const Image = ({ data }) => <img src={`data:image/jpeg;base64,${data}`} width="100%"/>
 
@@ -42,8 +43,20 @@ const Body = () => {
 
   const [figure, setFigure] = useState();
 
-  const handleChange = (func) => (event) => {
+  const [collection_options, setCollectionOption] = useState([])
+
+  const handleChange = (func) => async(event) => {
     func(event.target.value);
+
+    if (func == setDB){
+      const {
+        data: { response_type, data},
+      } = await axios.post('/collection', {
+          database: event.target.value, 
+      });
+      
+      setCollectionOption(data);
+    } 
   };
 
   const handleExplore = async () => {
