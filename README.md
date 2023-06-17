@@ -40,7 +40,7 @@ In this project, we propose an extended MongoDB platform which not only support 
    ```bash
    brew install yarn
    brew install node
-   cd Frontend/
+   cd frontend/
    yarn install
    yarn start
    ```
