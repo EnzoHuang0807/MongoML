@@ -13,6 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useStyles } from '../hooks';
 import axios from '../api';
 import { useMessage } from '../hooks/useMessage';
+import { useEffect } from 'react';
 
 const Wrapper = styled.section`
   display: flex;
@@ -38,13 +39,13 @@ const ContentPaper = styled(Paper)`
   white-space: pre-wrap;
 `;
 
-const db_options = ["ML_final"];
+
 const model_options = ["CatBoostRegressor", "LightGBMRegressor", "LinearRegression"];
 
 const Body = () => {
   const classes = useStyles();
 
-  const { messages, addRegularMessage, addErrorMessage, db_options} =
+  const { messages, addRegularMessage, addErrorMessage, db_options, setDBOptions} =
     useMessage();
 
   const Image = ({ data }) => <img src={`data:image/jpeg;base64,${data}`} width="50%"/>
@@ -123,6 +124,21 @@ const Body = () => {
     setBarChart(barchart);
   };
 
+  useEffect(() => {
+    getDB();
+  }, []);
+
+  const getDB = async() => {
+    const {
+      data: { response_type, data},
+    } = await axios.get('/db');
+
+    setDBOptions(data);
+  }
+
+  window.addEventListener("beforeunload", (event) => {
+    getDB();
+  });
 
   return (
     <Wrapper>

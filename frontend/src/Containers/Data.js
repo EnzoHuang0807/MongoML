@@ -33,7 +33,7 @@ const StyledFormControl = styled(FormControl)`
 const Body = () => {
 
   const classes = useStyles();
-  const {db_options} = useMessage();
+  const {db_options, setDBOptions} = useMessage();
 
   const Image = ({ data }) => <img src={`data:image/jpeg;base64,${data}`} width="100%"/>
 
@@ -71,6 +71,21 @@ const Body = () => {
     setFigure(data);
   };
 
+  useEffect(() => {
+    getDB();
+  }, []);
+
+  const getDB = async() => {
+    const {
+      data: { response_type, data},
+    } = await axios.get('/db');
+
+    setDBOptions(data);
+  }
+
+  window.addEventListener("beforeunload", (event) => {
+    getDB();
+  });
 
   return (
     <Wrapper>

@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useStyles } from '../hooks';
 import axios from '../api';
 import { useMessage } from '../hooks/useMessage';
+import { useEffect } from 'react';
 
 const Wrapper = styled.section`
   width: 100%;
@@ -54,7 +55,7 @@ const  db_options = ['ML_final']
 const Body = () => {
   const classes = useStyles();
 
-  const { messages, addRegularMessage} =
+  const { messages, addRegularMessage, db_options, setDBOptions} =
     useMessage();
 
   const [operation, setOperation] = useState('');
@@ -74,6 +75,22 @@ const Body = () => {
     addRegularMessage(data)
     console.log(data);
   };
+
+  useEffect(() => {
+    getDB();
+  }, []);
+
+  const getDB = async() => {
+    const {
+      data: { response_type, data},
+    } = await axios.get('/db');
+
+    setDBOptions(data);
+  }
+
+  window.addEventListener("beforeunload", (event) => {
+    getDB();
+  });
 
   return (
     <Wrapper>
