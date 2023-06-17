@@ -2,17 +2,14 @@ import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Paper from '@material-ui/core/Paper';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import { useStyles } from '../hooks';
 import axios from '../api';
-import { useMessage } from '../hooks/useMessage';
 
 const Wrapper = styled.section`
   display: flex;
@@ -29,13 +26,6 @@ const Row = styled.div`
 
 const StyledFormControl = styled(FormControl)`
   min-width: 120px;
-`;
-
-const ContentPaper = styled(Paper)`
-  height: 100px;
-  padding: 2em;
-  overflow: auto;
-  white-space: pre-wrap;
 `;
 
 const db_options = ["ML_final"];
