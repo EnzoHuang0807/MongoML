@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import { useStyles } from '../hooks';
 import axios from '../api';
-import { useScoreCard } from '../hooks/useScoreCard';
+import { useMessage } from '../hooks/useMessage';
 
 const Wrapper = styled.section`
   width: 100%;
@@ -33,6 +33,14 @@ const Row = styled.div`
   width: 100%;
 `;
 
+const Input = styled.textarea`
+  width: 50%;
+  height: 300px;
+  padding: 1em;
+  font-size: 15px;
+  border: 1px solid #E5E4E2;
+`;
+
 const ContentPaper = styled(Paper)`
   width: 50%;
   height: 300px;
@@ -46,8 +54,8 @@ const  db_options = ['ML_final']
 const Body = () => {
   const classes = useStyles();
 
-  const { messages, addCardMessage, addRegularMessage, addErrorMessage } =
-    useScoreCard();
+  const { messages, addRegularMessage} =
+    useMessage();
 
   const [operation, setOperation] = useState('');
   const [db, setDB] = useState('');
@@ -63,13 +71,14 @@ const Body = () => {
       database: db, 
       db_operation: operation 
     });
-    addCardMessage(data)
+    addRegularMessage(data)
     console.log(data);
   };
 
   return (
     <Wrapper>
       <Dashboard>
+
         <TextField
             id="select-db"
             select
@@ -89,24 +98,29 @@ const Body = () => {
           variant="contained"
           color="primary"
           onClick={handleRequest}
+          disabled = {!operation || !db}
         >
           Request
         </Button>
+
       </Dashboard>
       <Row>
-        <TextField
-          id="multiline-input"
-          multiline
-          value={operation}
-          onChange={handleChange(setOperation)}
+
+        <Input
+        name="query"
+        value={operation}
+        onChange={handleChange(setOperation)}
+        placeholder="Please enter your MongoDB query here..."
         />
+
         <ContentPaper variant="outlined">
           {messages.map((m, i) => (
-            <Typography variant="body2" key={m + i} style={{ color: m.color }}>
+            <Typography variant="body2" key={m + i} style={{ fontSize: "15px", color: m.color }}>
               {m.message}
             </Typography>
           ))}
         </ContentPaper>
+
       </Row>
     </Wrapper>
   );

@@ -3,14 +3,14 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./Containers/App";
 import reportWebVitals from "./reportWebVitals";
-import { ScoreCardProvider } from "./hooks/useScoreCard";
+import { MessageProvider } from "./hooks/useMessage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ScoreCardProvider>
+    <MessageProvider>
       <App />
-    </ScoreCardProvider>
+    </MessageProvider>
   </React.StrictMode>
 );
 

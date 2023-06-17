@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
-import axios from '../api';
-import { useScoreCard } from '../hooks/useScoreCard';
+import { useMessage } from '../hooks/useMessage';
 
 const Wrapper = styled.section`
   display: flex;
@@ -16,13 +14,10 @@ const Wrapper = styled.section`
 `;
 
 const Header = () => {
-  const { addRegularMessage } = useScoreCard();
+  const { removeMessage } = useMessage();
 
   const handleClear = async () => {
-    const {
-      data: { message },
-    } = await axios.delete('/cards');
-    addRegularMessage(true, message);
+    removeMessage();
   };
 
   return (
