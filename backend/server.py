@@ -11,24 +11,35 @@ import argparse
 import os
 import io
 
+from model import *
+
 # Initializing flask app
 app = Flask(__name__)
 CORS(app)
 
-def train_model(data : pd.DataFrame, test_data : pd.DataFrame, column : str):
+def train_model(data : pd.DataFrame, test_data : pd.DataFrame, y_column : str, model_type : str = 'LinearRegression'):
     # extract X and Y
-    X = data.drop([column], axis=1)
-    Y = data[column].copy()
+    X = data.drop([y_column], axis=1)
+    Y = data[y_column].copy()
+    if model_type == 'CatBoost':
+        model = Model_Cat_Regressor()
+        Train_Y = model.fit(X, Y)
+        print("Train complete")
+        Test_Y = model.predict(test_data)
+    else : 
+        if model_type != 'LinearRegression'
+        print(f"{model_type=} not found, default to LinearRegression")
+        # default Linear Regression
+        # train model
+        pinv_X = np.linalg.pinv(X.to_numpy())
+        pinv_Y = np.array(Y)
+        w_LIN = np.matmul(pinv_X, pinv_Y)
+        print("Train complete")
 
-    # train model
-    pinv_X = np.linalg.pinv(X.to_numpy())
-    pinv_Y = np.array(Y)
-    w_LIN = np.matmul(pinv_X, pinv_Y)
-    print("Train complete")
+        # Make predictions with new data
+        Train_Y = np.matmul(X.to_numpy(), w_LIN)
+        Test_Y = np.matmul(test_data.to_numpy(), w_LIN)
 
-    # Make predictions with new data
-    Train_Y = np.matmul(X.to_numpy(), w_LIN)
-    Test_Y = np.matmul(test_data.to_numpy(), w_LIN)
     Train_Y = list(map(round, Train_Y))
     Test_Y = list(map(round, Test_Y))
     return (Test_Y, Train_Y, Y)
@@ -93,7 +104,7 @@ def machine_learning():
         preprocessed_test_data = preprocess_data(test_data, preprocessing_methods, test_data.columns)
 
         # Access the predictions
-        train_result = train_model(preprocessed_train_data, preprocessed_test_data, predict_column)
+        train_result = train_model(preprocessed_train_data, preprocessed_test_data, predict_column, model)
         predictions = train_result[0]
         predict_train_y = train_result[1]
         train_y = train_result[2]
