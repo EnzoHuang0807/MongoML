@@ -2,6 +2,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
+import InsightsIcon from '@mui/icons-material/Insights';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 
 import { Link, useLocation } from 'react-router-dom';
@@ -14,8 +15,13 @@ const items = [
     to: '/',
   },
   {
-    name: 'Machine Learning',
+    name: 'Data Exploration',
     icon: <LeaderboardIcon />,
+    to: '/data_exploration',
+  },
+  {
+    name: 'Machine Learning',
+    icon: <InsightsIcon />,
     to: '/ML',
   },
 ];

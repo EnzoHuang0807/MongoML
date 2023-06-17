@@ -47,7 +47,7 @@ const column_options = ["Danceability"];
 const Body = () => {
   const classes = useStyles();
 
-  const { messages, addRegularMessage} =
+  const { messages, addRegularMessage, addErrorMessage} =
     useMessage();
 
   const Image = ({ data }) => <img src={`data:image/jpeg;base64,${data}`} width="50%"/>
@@ -89,7 +89,13 @@ const Body = () => {
         model: model,
         preprocessing_methods: [dup, scaling, impute] 
     });
-    addRegularMessage("The prediction mean is : " + data)
+
+    if (response_type == "predictions"){
+        addRegularMessage("The prediction mean is : " + data);
+    }
+    else{
+        addErrorMessage("Error : " + data);
+    }
     setHeatmap(heatmap);
     setBarChart(barchart);
   };

@@ -35,7 +35,7 @@ const Row = styled.div`
 
 const Input = styled.textarea`
   width: 50%;
-  height: 300px;
+  height: 400px;
   padding: 1em;
   font-size: 15px;
   border: 1px solid #E5E4E2;
@@ -43,7 +43,7 @@ const Input = styled.textarea`
 
 const ContentPaper = styled(Paper)`
   width: 50%;
-  height: 300px;
+  height: 400px;
   padding: 1em;
   overflow: auto;
   white-space: pre-wrap;

@@ -7,6 +7,7 @@ import {
 import Header from './Header';
 import Body from './Body';
 import ML from './ML';
+import Data from './Data';
 import AppFrame from './AppFrame';
 import styled from 'styled-components';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,7 +15,7 @@ import './app.css';
 
 const Wrapper = styled.div`
   margin: auto;
-  width: 70%;
+  width: 80%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -41,6 +42,13 @@ function App() {
               <>
               <Header />
               <ML />
+              </>} 
+            />
+
+            <Route path="/data_exploration" element={
+              <>
+              <Header />
+              <Data />
               </>} 
             />
 
