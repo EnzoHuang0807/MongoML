@@ -55,7 +55,7 @@ In this project, we propose an extended MongoDB platform which not only support 
 
 3. The remote server sends the result back to the client.
 
-   ![](/Users/kevin.lin/Desktop/Pic/Screen Shot 2023-06-17 at 7.36.54 PM.png)
+   ![](https://i.imgur.com/h5oVvvB.png)
 
 # Advantage
 
@@ -69,11 +69,11 @@ There are two parts of this project: the original MongoDB part and the extended 
 
 Original MongoDB implementation:
 
-![](/Users/kevin.lin/Desktop/Pic/Screen Shot 2023-06-17 at 7.48.52 PM.png)
+![](https://i.imgur.com/cVUGh1s.png)
 
 Extended MongoDB implementation:
 
-![](/Users/kevin.lin/Desktop/Pic/Screen Shot 2023-06-17 at 7.50.01 PM.png)
+![](https://i.imgur.com/TscN7LG.png)
 
 # Demo
 
