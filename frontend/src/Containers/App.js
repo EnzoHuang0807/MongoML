@@ -15,7 +15,7 @@ import './app.css';
 const Wrapper = styled.div`
   margin: auto;
   width: 70%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,7 +36,14 @@ function App() {
                 <Body />
               </Wrapper>} 
             />
-            <Route path="/ML" element={<ML/>} />
+
+            <Route path="/ML" element={
+              <>
+              <Header />
+              <ML />
+              </>} 
+            />
+
             <Route path="*" element={<h1>Error, Page Not Found</h1>} />
           </Route>
         </Routes>

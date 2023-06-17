@@ -83,7 +83,7 @@ def machine_learning():
     model = data['model']
     predict_column = data['predict_column']
     preprocessing_methods = data['preprocessing_methods']
-    
+    print(preprocessing_methods)
 
     #select db and collection
     db = db_client[database]
@@ -119,7 +119,7 @@ def machine_learning():
         response = {'response_type': 'predictions', 'data': np.mean(predictions)}
         
     except Exception as e:
-        return jsonify({'response_type': 'error', 'message': str(e)})
+        return jsonify({'response_type': 'error', 'data': str(e)})
 
     
     #generate image
