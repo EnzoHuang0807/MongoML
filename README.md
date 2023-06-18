@@ -29,13 +29,16 @@ In this project, we propose an extended MongoDB platform which not only support 
    pip install -r requirements.txt
    ```
 
-3. Start server on a machine
+3. Run MongoDB at `localhost:27017` and import data set beforehand
+
+
+4. Start server on a machine
 
    ```bash
    python3 backend/server.py
    ```
 
-4. Start client on another machine
+5. Start client on another machine
 
    ```bash
    brew install yarn
@@ -44,8 +47,6 @@ In this project, we propose an extended MongoDB platform which not only support 
    yarn install
    yarn start
    ```
-
-
 
 # Architecture Design
 
