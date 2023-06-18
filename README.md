@@ -71,7 +71,7 @@ In this project, we propose an extended MongoDB platform which not only support 
 
 3. The remote server sends the result back to the client.
 
-   ![](https://i.imgur.com/h5oVvvB.png)
+   ![](https://github.com/EnzoHuang0807/MongoML/blob/main/pic/architecture.png?raw=true)
 
 # Advantage
 
@@ -85,24 +85,42 @@ There are two parts of this project: the original MongoDB part and the extended 
 
 Original MongoDB implementation:
 
-![](https://i.imgur.com/cVUGh1s.png)
+![](https://github.com/EnzoHuang0807/MongoML/blob/main/pic/original_implementation.png?raw=true)
 
 Extended MongoDB implementation:
 
-![](https://i.imgur.com/TscN7LG.png)
+![](https://github.com/EnzoHuang0807/MongoML/blob/main/pic/extended_implementation.png?raw=true)
 
 # Demo
 
 1. Original MongoDB queries:
 
-![](https://i.imgur.com/h1nAZlG.png)
+![](https://github.com/EnzoHuang0807/MongoML/blob/main/pic/original_mongodb_query.png?raw=true)
 
 2. Data Exploration: show feature distributions
 
-   ![](https://i.imgur.com/PIhoNhi.png)
+   ![](https://github.com/EnzoHuang0807/MongoML/blob/main/pic/feature_distribution.png?raw=true)
 
 3. Data Exploration: show missing values
 
-   
+   ![](https://github.com/EnzoHuang0807/MongoML/blob/main/pic/missing_value.png?raw=true)
 
 4. Machine Learning:
+
+   ![](https://github.com/EnzoHuang0807/MongoML/blob/main/pic/machine_learning.png?raw=true)
+
+
+
+Furthermore, our UI will list the available databases, collections, and predict columns users can choose:
+
+Show databases list:
+
+![](https://github.com/EnzoHuang0807/MongoML/blob/main/pic/select_db.png?raw=true)
+
+Show collections list:
+
+![](https://github.com/EnzoHuang0807/MongoML/blob/main/pic/select_coll.png?raw=true)
+
+Show predict columns list:
+
+![](https://github.com/EnzoHuang0807/MongoML/blob/main/pic/select_predict_column.png?raw=true)
