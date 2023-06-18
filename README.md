@@ -48,9 +48,17 @@ In this project, we propose an extended MongoDB platform which not only support 
    yarn start
    ```
 
-**For Linux users:**
+   **For Linux users:**
+   ```bash
+   sudo apt-get install nodejs
+   sudo apt install npm
+   npm install --global yarn
+   cd frontend/
+   yarn install
+   yarn start
+   ```
 
-**For Window users:**
+   **For Window users:**
 
 # Architecture Design
 
