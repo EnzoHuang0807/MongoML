@@ -48,6 +48,10 @@ In this project, we propose an extended MongoDB platform which not only support 
    yarn start
    ```
 
+**For Linux users:**
+
+**For Window users:**
+
 # Architecture Design
 
 1. Users send request to a remote server (the mongodb service is on this remote server).
@@ -78,3 +82,16 @@ Extended MongoDB implementation:
 
 # Demo
 
+1. Original MongoDB queries:
+
+![](https://i.imgur.com/h1nAZlG.png)
+
+2. Data Exploration: show feature distributions
+
+   ![](https://i.imgur.com/PIhoNhi.png)
+
+3. Data Exploration: show missing values
+
+   
+
+4. Machine Learning:
