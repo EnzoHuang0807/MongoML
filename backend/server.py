@@ -241,7 +241,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # connect to mongodb
-    db_client = MongoClient('localhost', 27017)
+    db_client = MongoClient('127.0.0.1', 27017)
     print("Successfully connected to mongoDB")
 
     # Running app
