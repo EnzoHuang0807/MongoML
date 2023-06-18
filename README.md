@@ -29,6 +29,8 @@ In this project, we propose an extended MongoDB platform which not only support 
 
 3. Run MongoDB at `localhost:27017` and import data set beforehand (you can modify the file path in `data_init.py` to import your own data )
 
+   (*Note: The train/test collections we provided are meant to predict 'Danceability', the label column of this dataset. Error may occur in the attempt to predict other columns since the test collection doesn't contain 'Danceability' column.*)
+
    ```bash
    python3 backend/data_init.py
    ```
@@ -128,3 +130,10 @@ Show collections list:
 Show predict columns list:
 
 ![](https://github.com/EnzoHuang0807/MongoML/blob/main/pic/select_predict_column.png?raw=true)
+
+
+
+# Video Link
+
+[https://youtu.be/GoHedU9qSQU](https://youtu.be/GoHedU9qSQU?fbclid=IwAR1Gy2JiDvvMg9New4-zTep4gLUXwvVvBhXhJj5b8h4NRJNyZsW3HqyY5rI)
+
