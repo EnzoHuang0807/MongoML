@@ -14,8 +14,6 @@ In this project, we propose an extended MongoDB platform which not only support 
 
 # How to use?
 
-**For mac users:**
-
 1. Create a virtual environment (Optional):
 
    ```bash
@@ -40,6 +38,8 @@ In this project, we propose an extended MongoDB platform which not only support 
 
 5. Start client on another machine
 
+   **For mac users:**
+   
    ```bash
    brew install yarn
    brew install node
@@ -47,8 +47,9 @@ In this project, we propose an extended MongoDB platform which not only support 
    yarn install
    yarn start
    ```
-
+   
    **For Linux users:**
+   
    ```bash
    sudo apt-get install nodejs
    sudo apt install npm
@@ -57,8 +58,10 @@ In this project, we propose an extended MongoDB platform which not only support 
    yarn install
    yarn start
    ```
-
+   
    **For Window users:**
+   
+   please don't use Window or use WSL2
 
 # Architecture Design
 
