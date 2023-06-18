@@ -27,7 +27,11 @@ In this project, we propose an extended MongoDB platform which not only support 
    pip install -r requirements.txt
    ```
 
-3. Run MongoDB at `localhost:27017` and import data set beforehand
+3. Run MongoDB at `localhost:27017` and import data set beforehand (you can modify the file path in `data_init.py` to import your own data )
+
+   ```bash
+   python3 backend/data_init.py
+   ```
 
 
 4. Start server on a machine
@@ -36,7 +40,7 @@ In this project, we propose an extended MongoDB platform which not only support 
    python3 backend/server.py
    ```
 
-5. Start client on another machine
+5. Start client
 
    **For mac users:**
    
