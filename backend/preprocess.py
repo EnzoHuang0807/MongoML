@@ -12,6 +12,7 @@ from typing import List, Tuple
 
 def encode(data: pd.DataFrame):
     string_cols = data.select_dtypes(include=['object']).columns.tolist()
+    data[string_cols] = data[string_cols].astype('str')
     encoder = OrdinalEncoder()
     data[string_cols] = encoder.fit_transform(data[string_cols])
 
